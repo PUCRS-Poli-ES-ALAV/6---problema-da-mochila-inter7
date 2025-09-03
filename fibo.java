@@ -37,17 +37,30 @@
 // 	devolva f [n]
 //    ``` 
 public class fibo {
+
+    static int contadorItfiboRec = 0;
+    static int contadorItFibo2 = 0;
+    static int contadorItmemorizedFibo = 0;
+    static int contadorItlookupFibo = 0;
+
 public static void main(String[] args) {
     int[] testValues = {4, 8, 16, 32, 128, 1000, 10000};
     for (int n : testValues) {
         int[] f = new int[n+1];
-        System.out.println("FIBO-REC(" + n + ") = " + fiboRec(n));
-        System.out.println("FIBO2(" + n + ") = " + fibo2(n));
-        System.out.println("MEMOIZED-FIBO(" + n + ") = " + memorizedFibo(f, n));
+
+        contadorItfiboRec = 0;
+        contadorItFibo2 = 0;
+        contadorItmemorizedFibo = 0;
+        contadorItlookupFibo = 0;
+
+        System.out.println("FIBO-REC(" + n + ") = " + fiboRec(n) + " Número de iteracoes " + contadorItfiboRec);
+        System.out.println("FIBO2(" + n + ") = " + fibo2(n) + " Número de iteracoes " + contadorItFibo2);;
+        System.out.println("MEMOIZED-FIBO(" + n + ") = " + memorizedFibo(f, n) + " Número de iteracoes " + (contadorItmemorizedFibo + contadorItlookupFibo));
     }
 }
 
     public static int fiboRec(int n) {
+        contadorItfiboRec++;
         if (n <= 1)
             return n;
         else {
@@ -58,6 +71,7 @@ public static void main(String[] args) {
     }
 
     public static int fibo2(int n) {
+        contadorItFibo2++;
         int[] f = new int[n + 1];
         f[0] = 0;
         f[1] = 1;
@@ -68,6 +82,7 @@ public static void main(String[] args) {
     }
 
     public static int memorizedFibo(int[] f, int n) {
+        contadorItmemorizedFibo++;
         for (int i = 0; i <= n; i++) {
             f[i] = -1;
         }
@@ -75,6 +90,7 @@ public static void main(String[] args) {
     }
 
     public static int lookupFibo(int[] f, int n) {
+        contadorItlookupFibo++;
         if (f[n] >= 0)
             return f[n];
         if (n <= 1)
